@@ -8,7 +8,7 @@ class CLI_Prog():
     def __init__(self):
         parser = argp.ArgumentParser(
             description="CLI tool for generating passwords",
-            usage="""cli.py <command> [<args>]"""
+            usage="""cli.py <command> [<args>]\n\nThese are common Gen commands:\n  gen\tGenerates password"""
         )
         parser.add_argument("command", help="The command to run")
         
