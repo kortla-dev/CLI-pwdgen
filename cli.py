@@ -30,13 +30,13 @@ class CLI_Prog():
         
         passSyms = []
         
-        with open(f"{Funcs.getpwd()}.pwdgen/{args.symbols}.txt") as f:
+        with open(f"{Funcs.getpwd()}/.pwdgen/{args.symbols}.txt") as f:
             passSyms += f.read().split()
         
         pwd = "".join(passSyms[randint(0, len(passSyms)-1)] for _ in range(args.length))
         
         if args.verbose:
-            print(f"password generated is:\t{pwd}")
+            print(f"Password generated is:\t{pwd}")
         
         pyperclip.copy(pwd)
 
