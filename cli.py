@@ -13,7 +13,7 @@ class CLI_Prog():
         parser.add_argument("command", help="The command to run")
         
         # it gets the first argument after cli.py
-        args = parser.parse_args(sys.argv[1:2])  # PS. would also be sys.argv[1]
+        args = parser.parse_args(sys.argv[1:2])  # PS. could also be sys.argv[1]
 
         # gets the name of the func specified in command and calls it
         getattr(self, args.command)()
@@ -30,15 +30,18 @@ class CLI_Prog():
         
         passSyms = []
         
-        with open(f"{Funcs.getpwd()}/.pwdgen/{args.symbols}.txt") as f:
-            passSyms += f.read().split()
-        
-        pwd = "".join(passSyms[randint(0, len(passSyms)-1)] for _ in range(args.length))
-        
-        if args.verbose:
-            print(f"Password generated is:\t{pwd}")
-        
-        pyperclip.copy(pwd)
+        try:
+            with open(f"{Funcs.getpwd()}/.pwdgen/{args.symbols}.txt", "r") as f:
+                passSyms += f.read().split()
+            
+            pwd = "".join(passSyms[randint(0, len(passSyms)-1)] for _ in range(args.length))
+            
+            if args.verbose:
+                print(f"Password generated is:\t{pwd}")
+            
+            pyperclip.copy(pwd)
+        except FileNotFoundError:
+            print("File specified does not exist")
 
 if __name__=="__main__":
     CLI_Prog()
