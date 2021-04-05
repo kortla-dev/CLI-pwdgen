@@ -49,7 +49,7 @@ class CLI_Tri():
         passSyms = []
         
         try:
-            with open(f"{funcs.getPwd}/.pwdgen/{args.symbols}.txt", "r") as f:
+            with open(f"{funcs.getPwd()}/.pwdgen/{args.symbols}.txt", "r") as f:
                 passSyms += f.read().split()
             
             pwd = "".join(passSyms[randint(0, len(passSyms)-1)] for _ in range(args.length))
