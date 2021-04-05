@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import os, sys, Funcs, pyperclip
+import os, sys, funcs, pyperclip
 from random import randint
 import argparse as argp
 
@@ -49,7 +49,7 @@ class CLI_Tri():
         passSyms = []
         
         try:
-            with open(f"{Funcs.getpwd()}/.pwdgen/{args.symbols}.txt", "r") as f:
+            with open(f"{funcs.getpwd()}/.pwdgen/{args.symbols}.txt", "r") as f:
                 passSyms += f.read().split()
             
             pwd = "".join(passSyms[randint(0, len(passSyms)-1)] for _ in range(args.length))
