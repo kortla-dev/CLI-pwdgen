@@ -5,13 +5,13 @@ from random import randint
 import argparse as argp
 
 class CLI_Tri():
-    def __init__(self):
+    def __init__(self, stdin: sys.argv):
         
-        sysInput = sys.argv
+        self._stdin = stdin
         
-        if sysInput[1] == "tri":
+        if self._stdin[0] == "tri":
         
-            cliCommand = sysInput[1:3]
+            cliCommand = self._stdin[0:2]
             
             if cliCommand[-1][0] != "-" and cliCommand[-1] != "tri":
                 keyw, com = cliCommand
@@ -29,7 +29,7 @@ class CLI_Tri():
             usage=f"""usage: tri [-v | --version] [-h | --help]\n\t{' '*3}<command> [<args>]\n\nThese are the most common Tri commands:\n  gen\tGenerates a password\n"""
         )
         parser.add_argument("-v", "--version", action="store_true", help="Gets your instalation version of Tri")
-        args = parser.parse_args(sys.argv[2:]) # it gets the rest of the optional arguments after tri
+        args = parser.parse_args(self._stdin[1:]) # it gets the rest of the optional arguments after tri
         
         if args.version:
             print("You still have to implement this\n")
@@ -44,12 +44,12 @@ class CLI_Tri():
         parser.add_argument("-s", "--symbols", type=str, default="default", help="File with the symbols you want to be used")
         parser.add_argument("-l", "--length", type=int, default=15, help="The length you want the password to be")
         parser.add_argument("-v", "--verbose", action="store_true", help="Show more information")
-        args = parser.parse_args(sys.argv[3:])  # it gets the rest of the optional arguments after gen
+        args = parser.parse_args(self._stdin[2:])  # it gets the rest of the optional arguments after gen
         
         passSyms = []
         
         try:
-            with open(f"{funcs.getpwd()}/.pwdgen/{args.symbols}.txt", "r") as f:
+            with open(f"{funcs.getPwd}/.pwdgen/{args.symbols}.txt", "r") as f:
                 passSyms += f.read().split()
             
             pwd = "".join(passSyms[randint(0, len(passSyms)-1)] for _ in range(args.length))
@@ -61,5 +61,10 @@ class CLI_Tri():
         except FileNotFoundError:
             print("File specified does not exist\n")
 
-if __name__=="__main__":
-    CLI_Tri()
+while __name__=="__main__":
+    cliInput = input("{0}@{1} ~{2}\n$ ".format(
+        os.environ["USERNAME"],
+        os.environ['COMPUTERNAME'],
+        str(funcs.getCurUserPwd())).replace("\\", "/")
+    )
+    CLI_Tri(cliInput.split())
