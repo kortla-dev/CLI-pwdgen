@@ -20,6 +20,8 @@ class CLI_Tri():
                 command = cliCommand[0]
             
             getattr(self, command)()
+        elif self._stdin[0] == "quit":
+            self.quit()
         else:
             pass
     
@@ -60,11 +62,10 @@ class CLI_Tri():
             pyperclip.copy(pwd)
         except FileNotFoundError:
             print("File specified does not exist\n")
-
+    
+    def quit(self):
+        exit(0)
+        
 while __name__=="__main__":
-    cliInput = input("{0}@{1} ~{2}\n$ ".format(
-        os.environ["USERNAME"],
-        os.environ['COMPUTERNAME'],
-        str(funcs.getCurUserPwd())).replace("\\", "/")
-    )
+    cliInput = input(funcs.termPwd())
     CLI_Tri(cliInput.split())
