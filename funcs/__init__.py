@@ -10,7 +10,6 @@ def getPwd():
 def termPwd():
     path_pattern = re.compile(r"\/?\w\:?(\\|\/)Users(\\|\/)[a-zA-Z0-9-_]+([a-zA-Z0-9-_\/\\]+)")
     path = path_pattern.match(os.getcwd())
-    path.group(3)
     termPromt = "{0}@{1} ~{2}\n$ ".format(
         os.environ["USERNAME"],
         os.environ['COMPUTERNAME'],
